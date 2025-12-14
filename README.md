@@ -24,3 +24,9 @@ SMS Spam Collection Dataset
 ```bash
 python src/train.py
 
+
+## 🌐 Live Demo
+https://spam-detection-ml-rrzhrn2d5j5mvvytx9iyen.streamlit.app/
+
+
+

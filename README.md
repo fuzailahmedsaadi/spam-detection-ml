@@ -1,7 +1,7 @@
-# 📧 Spam Message Detection using Machine Learning
+# 📧 Spam Detection using Machine Learning
 
 ## 🔍 Overview
-This project classifies SMS messages as **Spam** or **Ham** using Natural Language Processing and Machine Learning.
+This project classifies SMS messages as **Spam** or **Ham** using NLP and Machine Learning.
 
 ## 📂 Dataset
 SMS Spam Collection Dataset
@@ -10,7 +10,7 @@ SMS Spam Collection Dataset
 - Python
 - Pandas, NumPy
 - Scikit-learn
-- TF-IDF Vectorizer
+- TF-IDF
 - Multinomial Naive Bayes
 - Streamlit
 
@@ -19,6 +19,8 @@ SMS Spam Collection Dataset
 - High spam precision
 
 ## 🚀 How to Run
+
+### Train the model
 ```bash
-pip install -r requirements.txt
-streamlit run app.py
+python src/train.py
+

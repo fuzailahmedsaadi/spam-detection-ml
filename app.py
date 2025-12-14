@@ -1,8 +1,40 @@
 import streamlit as st
 import joblib
+import os
+import pandas as pd
 
-# Load trained model
-model = joblib.load("model/spam_classifier.pkl")
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.pipeline import Pipeline
+from sklearn.naive_bayes import MultinomialNB
+
+MODEL_PATH = "model/spam_classifier.pkl"
+
+@st.cache_resource
+def train_and_load_model():
+    # Load dataset
+    try:
+        df = pd.read_csv("data/spam.csv", encoding="utf-8")
+    except:
+        df = pd.read_csv("data/spam.csv", encoding="latin-1")
+
+    df = df.rename(columns={"v1": "label", "v2": "text"})
+    df = df[["label", "text"]]
+    df["label"] = df["label"].map({"ham": 0, "spam": 1})
+
+    X_train, _, y_train, _ = train_test_split(
+        df["text"], df["label"], test_size=0.2, random_state=42
+    )
+
+    model = Pipeline([
+        ("tfidf", TfidfVectorizer(stop_words="english", ngram_range=(1, 2))),
+        ("nb", MultinomialNB())
+    ])
+
+    model.fit(X_train, y_train)
+    return model
+
+model = train_and_load_model()
 
 st.set_page_config(page_title="Spam Detector", page_icon="📧")
 
